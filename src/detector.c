@@ -172,7 +172,7 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
     int img_size = 1000;
     char windows_name[100];
     sprintf(windows_name, "chart_%s.png", base);
-    img = draw_train_chart(windows_name, max_img_loss, net.max_batches, number_of_lines, img_size, dont_show, chart_path);
+    img = draw_train_chart(chart_path, max_img_loss, net.max_batches, number_of_lines, img_size, dont_show, NULL);
 #endif    //OPENCV
     if (net.contrastive && args.threads > net.batch/2) args.threads = net.batch / 2;
     if (net.track) {
@@ -377,7 +377,7 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
             if (cur_con_acc >= 0) avg_contrastive_acc = avg_contrastive_acc*0.99 + cur_con_acc * 0.01;
             printf("  avg_contrastive_acc = %f \n", avg_contrastive_acc);
         }
-        draw_train_loss(windows_name, img, img_size, avg_loss, max_img_loss, iteration, net.max_batches, mean_average_precision, draw_precision, "mAP%", avg_contrastive_acc / 100, dont_show, mjpeg_port, avg_time);
+        draw_train_loss(chart_path, img, img_size, avg_loss, max_img_loss, iteration, net.max_batches, mean_average_precision, draw_precision, "mAP%", avg_contrastive_acc / 100, dont_show, mjpeg_port, avg_time);
 #endif    // OPENCV
 
         //if (i % 1000 == 0 || (i < 1000 && i % 100 == 0)) {
